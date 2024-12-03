@@ -1,0 +1,27 @@
+# Ignore PyCharm project files
+.idea/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore virtual environments
+env/
+venv/
+*.env/
+
+# Ignore text files
+*.txt
+
+# Ignore HTML files
+*.html
+
+# Ignore folders ending in _files
+*_files/
+
+# Ignore Visual Studio files/folders
+.vs/
+obj/
+bin/
