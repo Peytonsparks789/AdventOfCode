@@ -13,13 +13,13 @@ venv/
 *.env/
 
 # Ignore text files
-*.txt
+#*.txt
 
 # Ignore HTML files
-*.html
+#*.html
 
 # Ignore folders ending in _files
-*_files/
+#*_files/
 
 # Ignore Visual Studio files/folders
 .vs/
