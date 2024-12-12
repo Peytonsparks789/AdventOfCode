@@ -1,4 +1,4 @@
-﻿namespace Day4
+﻿namespace Day_4
 {
     /// <summary>
     /// I think I overengineered this. This will find ALL instances, including words that switch directions mid-word...

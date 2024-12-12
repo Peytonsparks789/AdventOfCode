@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Day4
+﻿namespace Day_4
 {
     internal class Program
     {

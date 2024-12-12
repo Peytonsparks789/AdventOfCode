@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Day5
+﻿namespace Day_5
 {
     internal class Program
     {
@@ -28,18 +26,12 @@ namespace Day5
 
             (List<List<int>> pageOrderingRules, List<List<int>> pagesToProduce) = splitFileContents(path);
 
-            foreach (var line in pageOrderingRules)
-            {
-                Console.WriteLine(string.Join(", ", line));
-            }
+            Console.WriteLine("Checking for valid lines: ");
+            string part1 = $"Part 1: Total = {Part1.Run(pageOrderingRules, pagesToProduce)}";
+            Console.WriteLine("Fixing invalid lines: ");
+            string part2 = $"Part 2: Total Occurences = {Part2.Run(pageOrderingRules, pagesToProduce)}";
 
-            foreach (var line in pagesToProduce)
-            {
-                Console.WriteLine(string.Join(", ", line));
-            }
-
-            Console.WriteLine($"Part 1: Total Occurences = {Part1.Run(pageOrderingRules, pagesToProduce)}");
-            //Console.WriteLine($"Part 2: Total Occurences = {Part2.Run(pageOrderingRules, pagesToProduce)}");
+            Console.WriteLine($"{part1} \n{part2}");
         }
     }
 }
