@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace Day_5
+﻿namespace Day_5
 {
     internal class Part2
     {
