@@ -15,21 +15,15 @@
             Console.WriteLine("===================");
         }
 
-        public static List<List<string>> MarkLocation(List<List<string>> map, (int, int) guardLoc, (int, int) direction, string directionFacing, List<string> obstacles)
+        public static List<List<string>> MarkLocation(List<List<string>> map, (int, int) loc, (int, int) newLoc, string directionFacing)
         {
-            if ( // As long as within bounds, move guard
-                guardLoc.Item1 + direction.Item1 >= 0 && guardLoc.Item1 + direction.Item1 < map.Count && // Check x bounds
-                guardLoc.Item2 + direction.Item2 >= 0 && guardLoc.Item2 + direction.Item2 < map[guardLoc.Item1 + direction.Item1].Count && // Check y bounds
-                !obstacles.Contains(map[guardLoc.Item1 + direction.Item1][guardLoc.Item2 + direction.Item2]) // Check if it's not an obstacle
-                )
-            {
-                map[guardLoc.Item1 + direction.Item1][guardLoc.Item2 + direction.Item2] = directionFacing;
-                map[guardLoc.Item1][guardLoc.Item2] = "X";
-            }
-            else map[guardLoc.Item1][guardLoc.Item2] = "X"; // Mark visited locations
+            if ( Controller.IsValidMove(map, newLoc.Item1, newLoc.Item2) )
+                map[newLoc.Item1][newLoc.Item2] = directionFacing; // Move guard is still within bounds
+            map[loc.Item1][loc.Item2] = "X"; // Mark visited locations
 
             return map;
         }
+
         public static string GetDirection((int, int) direction)
         {
             switch (direction)

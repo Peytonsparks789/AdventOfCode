@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day_6
+﻿namespace Day_6
 {
     internal class Controller
     {/// <summary>
@@ -33,11 +27,19 @@ namespace Day_6
         }
         public static bool IsValidMove(List<List<string>> map, int x, int y)
         {
-            return x >= 0            // x upper bounds
-                && x < map.Count     // x lower bounds
-                && y >= 0            // y upper bounds
-                && y < map[x].Count  // y lower bounds
+            return x >= 0            // x upper bound
+                && x < map.Count     // x lower bound
+                && y >= 0            // y upper bound
+                && y < map[x].Count  // y lower bound
                 && map[x][y] != "#"; // Check if obstacle present
+        }
+        public static bool IsOutOfBounds(List<List<string>> map, int x, int y)
+        {
+            // Returns whether or not the guard has left the map boundaries
+            return x < 0              // x upper bound
+                || x >= map.Count     // x lower bound
+                || y < 0              // y upper bound
+                || y >= map[x].Count; // y lower bound
         }
     }
 }

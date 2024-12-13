@@ -1,6 +1,6 @@
 ﻿namespace Day_6
 {
-    internal class Part1
+    internal class Part2
     {
         public static (int, bool, (int, int)) NextPath(List<List<string>> map, (int, int) loc, (int, int) direction, string directionFacing, int total)
         {
