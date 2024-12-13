@@ -11,7 +11,7 @@
             {
                 if (Controller.CheckPage(pageOrderingRules, page))
                 {
-                    Console.WriteLine($"    Valid line detected: {String.Join(", ", page)} \n        Adding {page[(page.Count / 2)]}");
+                    //Console.WriteLine($"    Valid line detected: {String.Join(", ", page)} \n        Adding {page[(page.Count / 2)]}");
                     total += page[(page.Count / 2)];
                 }
             }

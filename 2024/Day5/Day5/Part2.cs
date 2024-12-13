@@ -1,15 +1,34 @@
-﻿namespace Day_5
+﻿using System.Data;
+
+namespace Day_5
 {
     internal class Part2
     {
-        public static List<int> SortPages(List<List<int>> pageOrderingRules, List<int> page)
+        public static (bool, List<int>) SortPages(List<List<int>> pageOrderingRules, List<int> page)
         {
-            List<int> sortedList = new List<int>();
+            bool toTotal = false;
+            while (!Controller.CheckPage(pageOrderingRules, page))
+            {
+                toTotal = true;
+                for (int i = page.Count - 1; i >= 0; i--)
+                {
+                    for (int j = 0; j < pageOrderingRules.Count; j++)
+                    {
+                        if (pageOrderingRules[j][0] == page[i])
+                        {
+                            int swapValue = page.IndexOf(pageOrderingRules[j][1]);
+                            if (swapValue >= 0 && swapValue < i)
+                            {
+                                int temp = page[i];
+                                page[i] = page[swapValue];
+                                page[swapValue] = temp;
+                            }
+                        }
+                    }
+                }
+            }
 
-            // NEED TO SORT HERE, THEN RETURN SORTED LIST
-            sortedList = page;
-
-            return sortedList;
+            return (toTotal, page);
         }
         public static int Run(List<List<int>> pageOrderingRules, List<List<int>> pagesToProduce)
         {
@@ -18,13 +37,14 @@
 
             foreach (List<int> page in pagesToProduce)
             {
-                if (!Controller.CheckPage(pageOrderingRules, page))
+                bool toAdd = false;
+                (toAdd, List<int> newPage) = SortPages(pageOrderingRules, page);
+                if (toAdd)
                 {
-                   total += SortPages(pageOrderingRules, page)[(page.Count / 2)];
+                    sortedList.Add(newPage);
+                    total += newPage[page.Count / 2];
                 }
             }
-
-            // foreach (var rule in invalidPages) { Console.WriteLine(String.Join(", ", rule)); }
 
             return total;
         }

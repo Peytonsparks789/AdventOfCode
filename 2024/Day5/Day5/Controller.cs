@@ -27,7 +27,7 @@
                     if (page[num] == page[pos]) { continue; }
                     if (rule[0] == page[num])
                     {
-                        Console.WriteLine($"    Invalid line detected: {String.Join(", ", page)}");
+                        //Console.WriteLine($"    Invalid line detected: {String.Join(", ", page)}");
                         return false;
                     }
                 }

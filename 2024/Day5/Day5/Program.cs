@@ -22,16 +22,13 @@
         static void Main(string[] args)
         {
             // Define the path of our input file
-            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, "sample.txt");
+            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, "input.txt");
 
             (List<List<int>> pageOrderingRules, List<List<int>> pagesToProduce) = splitFileContents(path);
 
-            Console.WriteLine("Checking for valid lines: ");
-            string part1 = $"Part 1: Total = {Part1.Run(pageOrderingRules, pagesToProduce)}";
-            Console.WriteLine("Fixing invalid lines: ");
-            string part2 = $"Part 2: Total Occurences = {Part2.Run(pageOrderingRules, pagesToProduce)}";
-
-            Console.WriteLine($"{part1} \n{part2}");
+            Console.WriteLine($"Part 1: Total = {Part1.Run(pageOrderingRules, pagesToProduce)}");
+            Console.WriteLine($"Part 2: Total = {Part2.Run(pageOrderingRules, pagesToProduce)}");
         }
     }
 }
+//6425
