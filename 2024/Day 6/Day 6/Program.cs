@@ -24,16 +24,17 @@
         }
         static void Main(string[] args)
         {
+
             // Define the path of our input file
             string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, "input.txt");
 
             List<List<string>> map = readFileContents(path);
 
             List<List<string>> mapPart1 = map.Select(row => new List<string>(row)).ToList();
-            Console.WriteLine($"Part 1: Total Distinct Locations = {Part1.Run(mapPart1)}");
+            Console.WriteLine($"Part 1: Total Distinct Locations = {Part1.Run(mapPart1).Item2}");
 
             List<List<string>> mapPart2 = map.Select(row => new List<string>(row)).ToList();
-            Console.WriteLine($"Part 2: Total Extra Obstacle Locations = {Part2.Run(mapPart2)}");
+            Console.WriteLine($"Part 2: Total Extra Obstacle Locations = {Part2.Run(mapPart2, mapPart1)}");
         }
     }
 }

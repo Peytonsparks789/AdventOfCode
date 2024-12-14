@@ -1,56 +1,45 @@
-﻿namespace Day_6
+﻿using Microsoft.VisualBasic;
+
+namespace Day_6
 {
     internal class Part2
     {
-        public static (int, bool, (int, int)) NextPath(List<List<string>> map, (int, int) loc, (int, int) direction, string directionFacing, int total)
+
+        public static List<(int, int)> VisitedLocations(List<List<string>> guardRoute, List<List<string>> map)
         {
-            (int, int) newLoc = (loc.Item1 + direction.Item1, loc.Item2 + direction.Item2);
-
-            List<string> obstacles = new List<string> { "#" };
-            while ( Controller.IsValidMove(map, newLoc.Item1, newLoc.Item2) )
+            (int, int) guardStart = Controller.FindGuard(map);
+            List<(int, int)> visitedLocations = new List<(int, int)>();
+            for (int i = 0; i < guardRoute.Count; i++)
             {
-                // Change guard direction on map, mark visited locations
-                if (map[newLoc.Item1][newLoc.Item2] != "X")
-                    total += 1;
-
-                // Set guard position on map
-                map = Visualizer.MarkLocation(map, loc, newLoc, directionFacing);
-
-                // Update guard location
-                loc = (newLoc.Item1, newLoc.Item2); // Move guard by 1 position
-
-                // Set our next location to check
-                newLoc.Item1 += direction.Item1;
-                newLoc.Item2 += direction.Item2;
+                for (int k = 0; k < guardRoute[i].Count; k++)
+                {
+                    if (guardRoute[i][k] == "X" && guardStart != (i, k))
+                    {
+                        visitedLocations.Add((i, k));
+                    }
+                }
             }
+            
 
-            // If guard has left location, return exit as true, else false
-            if ( Controller.IsOutOfBounds(map, newLoc.Item1, newLoc.Item2) )
-            {
-                map = Visualizer.MarkLocation(map, loc, newLoc, directionFacing);
-                return (total, true, loc);
-            }
-            else return (total, false, loc);
+            return visitedLocations;
         }
-        public static int Run(List<List<string>> map)
+
+        public static int Run(List<List<string>> map, List<List<string>> guardRoute)
         {
-            int total = 1; // Start at 1, guard visiting current location
-            (int, int) direction = (-1, 0); // Up
-            string directionFacing = Visualizer.GetDirection(direction); // Set arrow direction. Does not affect functionality
-            bool exit; // Indicates guard has left map
+            int total = 0;
+            List<(int, int)> visitedLocations = VisitedLocations(guardRoute, map);
 
-            // Find our initial starting point
-            (int, int) guardLoc = Controller.FindGuard(map);
-
-            while (true) // Run until guard leaves area
+            foreach (var location in visitedLocations)
             {
-                // Navigate in one direction until no longer possible
-                (total, exit, guardLoc) = NextPath(map, guardLoc, direction, directionFacing, total);
+                List<List<string>> newMap = map.Select(row => new List<string>(row)).ToList();
 
-                // Turn the direction of the guard
-                (direction, directionFacing) = Controller.GuardTurn(direction); // Changes guard direction
 
-                if (exit ) break;
+                newMap[location.Item1][location.Item2] = "#";
+
+                if (Part1.Run(newMap).Item1)
+                {
+                    total += 1;
+                }
             }
 
             return total;

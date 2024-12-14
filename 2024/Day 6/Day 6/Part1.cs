@@ -32,8 +32,9 @@
             }
             else return (total, false, loc);
         }
-        public static int Run(List<List<string>> map)
+        public static (bool, int) Run(List<List<string>> map)
         {
+            List<(int,int)> guardBuffer = new List<(int, int)>();
             int total = 1; // Start at 1, guard visiting current location
             (int, int) direction = (-1, 0); // Up
             string directionFacing = Visualizer.GetDirection(direction); // Set arrow direction. Does not affect functionality
@@ -47,13 +48,21 @@
                 // Navigate in one direction until no longer possible
                 (total, exit, guardLoc) = NextPath(map, guardLoc, direction, directionFacing, total);
 
+                if (guardBuffer.Contains(guardLoc) && guardBuffer[guardBuffer.Count - 1] != guardLoc)
+                {
+                    return (true, total);
+                }
+                else
+                    guardBuffer.Add(guardLoc);
+                    
+
                 // Turn the direction of the guard
                 (direction, directionFacing) = Controller.GuardTurn(direction); // Changes guard direction
 
                 if (exit ) break;
             }
 
-            return total;
+            return (false, total);
         }
     }
 }
