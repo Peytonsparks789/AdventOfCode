@@ -21,10 +21,7 @@
 
                     // Combine two numbers using the given operator
                     for (int i = 0; i < equationLength - 1; i++)
-                    {
                         currentValue = Controller.ApplyOperator(currentValue, set.Item2[i + 1], combination[i]);
-                    }
-
 
                     // Determine if ending value is a valid equation solution
                     if (set.Item1 == currentValue)
