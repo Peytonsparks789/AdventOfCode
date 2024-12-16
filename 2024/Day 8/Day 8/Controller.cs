@@ -33,7 +33,7 @@
                         {
                             currentNode,
                             (i, j),
-                            (Math.Abs(currentNode.Item1 - i), Math.Abs(currentNode.Item2 - j))
+                            (currentNode.Item1 - i, currentNode.Item2 - j)
                         };
                         nodes.Add(node);
                     }
