@@ -10,7 +10,7 @@
                 // Helper method to check and update the map
                 bool CheckAndUpdate(int x, int y, int dx, int dy)
                 {
-                    if (Controller.CheckBounds(antinodalMap, x + dx, y + dy)
+                    if (Part1_Controller.CheckBounds(antinodalMap, x + dx, y + dy)
                         && antinodalMap[x + dx][y + dy] != "#" 
                         && sourceMap[x][y] != sourceMap[x + dx][y+dy]
                         )
@@ -41,16 +41,16 @@
             List<List<string>> antinodalMap = map.Select(row => new List<string>(row)).ToList();
 
             // Find all nodes, their adjacent nodes, and the distance between the two
-            List<List<(int, int)>> nodalDistances = Controller.FindNodalDistance(map);
+            List<List<(int, int)>> nodalDistances = Part1_Controller.FindNodalDistance(map);
 
             // Generate a map containing all antinodes
             antinodalMap = GenerateAntinodes(nodalDistances, antinodalMap, map);
 
             // Visual representation of both maps for debugging
-            Controller.PrintMaps(map, antinodalMap);
+            Part1_Controller.PrintMaps(map, antinodalMap);
 
             // Find total antinodes that were identified
-            return Controller.FindAntinodes(antinodalMap); 
+            return Part1_Controller.FindAntinodes(antinodalMap); 
         }
     }
 }

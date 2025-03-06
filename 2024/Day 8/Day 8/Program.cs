@@ -32,7 +32,7 @@ static void Main(string filename)
 
     Console.WriteLine($"Part 1: Calibration Result = {Part1.Run(map)}");
 
-    //Console.WriteLine($"Part 2: Calibration Result = {Part2.Run(calibrationEquations)}");
+    Console.WriteLine($"Part 2: Calibration Result = {Part2.Run(map)}");
 }
 
 string filename = "input.txt";

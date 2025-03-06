@@ -1,6 +1,6 @@
 ﻿namespace Day_8
 {
-    internal class Controller
+    internal class Part1_Controller
     {
         public static void PrintMaps(List<List<string>> map, List<List<string>> antinodalMap)
         {
