@@ -2,7 +2,7 @@
 
 static string[] ParseDisk(string[] disk)
 {
-    List<string> list = new List<string>();
+    List<string> list = [];
     int loc = 0;
 
     // Iterate over every item in our disk
@@ -54,17 +54,10 @@ static void Main(string filename)
 
     string[] parsedDisk = ParseDisk(disk);
 
-    // Print our string
-    foreach (string x in disk) Console.Write(x + " ");
-    Console.WriteLine("");
-    foreach (string x in parsedDisk) Console.Write(x + " ");
-    Console.WriteLine("");
-
     // Part 1
-    var part1 = new Part1();
-    Console.WriteLine($"\nPart 1: Checksum = {part1.Run(disk)}");
-
-    // Console.WriteLine($"Part 2: Calibration Result = {Part2.Run(map)}");
+    Console.WriteLine($"Part 1: Checksum = {Part1.Run(parsedDisk)}");
+    // 5561233379
+    // NOT CORRECT
 }
 
-Main("sample.txt");
+Main("input.txt");

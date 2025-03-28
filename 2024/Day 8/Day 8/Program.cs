@@ -35,5 +35,5 @@ static void Main(string filename)
     Console.WriteLine($"Part 2: Calibration Result = {Part2.Run(map)}");
 }
 
-string filename = "input.txt";
+string filename = "sample.txt";
 Main(filename);

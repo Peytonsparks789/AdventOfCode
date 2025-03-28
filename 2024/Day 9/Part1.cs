@@ -2,31 +2,68 @@
 {
     internal class Part1
     {
-        public string[] CompactDisk(string[] disk)
+        
+        private static int FindFileCount(string[] disk)
         {
-            int endingDistance = 0;
-            for (int i = 0; i < disk.Length; i++)
+            int fileCount = 0;
+
+            // Find total files in disk
+            foreach (string location in disk)
             {
-                if (disk[i] == ".")
+                if (location != ".") fileCount++;
+            }
+
+            return fileCount;
+        }
+        private static string[] CompactDisk(string[] disk, int fileCount)
+        {
+            int diskSwapLoc = 0;
+
+            // Iterate over every location in our file, up to the position of our fileCount
+            for (int i = 0; i < fileCount; i++)
+            {
+                int swapPos = disk.Length - 1 - diskSwapLoc;
+
+                // Swap values at current position until not empty space value
+                if (disk[i] == "." && disk[swapPos] != ".")
                 {
-                    string moveChar = disk[i];
-                    Console.WriteLine(disk.Length - 1);
-                    disk[i] = disk[((disk.Length - 1) - endingDistance)];//42
-                    endingDistance++;
-                    disk[((disk.Length - 1) - i)] = moveChar;
+                    disk[i] = disk[swapPos];
+                    disk[swapPos] = ".";
+                    diskSwapLoc++;
                 }
+                else if (disk[i] == ".")
+                {
+                    i--;
+                    diskSwapLoc++;
+                }
+                // Used for debugging
+                //Debugger.VisualizeDisk(disk);
             }
 
             return disk;
         }
-
-        public long Run(string[] disk)
+        private static long GenerateChecksum(string[] disk, int fileCount)
         {
             long checksum = 0;
 
-            string[] compactedDisk = CompactDisk(disk);
-            foreach (string x in compactedDisk) Console.Write(x + " ");
-            Console.WriteLine("");
+            // Find our total files present on our disk
+            for (int i = 0; i < fileCount; i++)
+            {
+                checksum += i * Convert.ToInt32(disk[i]);
+            }
+
+            return checksum;
+        }
+        public static long Run(string[] disk)
+        {
+            // Check how many files are present on our disk
+            int fileCount = FindFileCount(disk);
+
+            // compact our disk
+            string[] compactedDisk = CompactDisk(disk, fileCount);
+
+            // Generate the checksum
+            long checksum = GenerateChecksum(compactedDisk, fileCount);
 
             return checksum;
         }
