@@ -1,31 +1,39 @@
 ﻿using Day_9;
 using System.Diagnostics;
 static void VisualizeDisk(List<int> disk)
-{
-    // Used for debugging, print our current state of the disk
+{ // Used for debugging, print our current state of the disk
     Console.WriteLine(string.Join(" ", disk));
 }
-static List<int> ReadDisk(string path)
-{ // Return our raw input from our file
-    return File.ReadAllText(path)
-               .Where(char.IsDigit)
-               .Select(value => int.Parse(value.ToString()))
-               .ToList();
-}
-static List<int> ParseDisk(List<int> disk)
-{ // Parse our raw input as a map of files and empty spaces
+static List<int> FileParser(string path)
+{
+    // Read the file content and parse digits into a list of integers
+    var disk = File.ReadAllText(path)
+                   .Where(char.IsDigit)
+                   .Select(value => int.Parse(value.ToString()))
+                   .ToList();
+    VisualizeDisk(disk);
+
+    // Initialize location counter and parsed disk list
     int loc = 0;
     var parsedDisk = new List<int>();
 
+    // Iterate through the disk list to create a map of files and empty spaces
     for (int i = 0; i < disk.Count; i++)
     {
+        // Determine if the current index represents a file or empty space
         bool file = (i % 2 == 0);
+
+        // Add the appropriate number of locations or empty spaces to the parsed disk list
         parsedDisk.AddRange(Enumerable.Repeat(file ? loc : -1, disk[i]));
+
+        // Increment location counter if the current index represents a file
         if (file) loc++;
     }
+    VisualizeDisk(parsedDisk);
+
     return parsedDisk;
 }
-static long GenerateChecksum(List<int> disk)
+    static long GenerateChecksum(List<int> disk)
 {
     long checksum = 0;
 
@@ -36,33 +44,29 @@ static long GenerateChecksum(List<int> disk)
     }
     return checksum;
 }
-static void Main(string filename)
+static void Main(string path)
 {
-    Stopwatch fileParsingTimer = Stopwatch.StartNew();
     var disk = new List<int>();
-
-    disk = ReadDisk(filename);
-    VisualizeDisk(disk);
-
-    disk = ParseDisk(disk);
-    VisualizeDisk(disk);
-    fileParsingTimer.Stop();
 
     // Part 1
     Stopwatch part1Timer = Stopwatch.StartNew();
-    var part1Disk = DiskCompactor.Part1CompactDisk(disk);
-    VisualizeDisk(part1Disk);
-    Console.WriteLine($"Part 1: Checksum = {GenerateChecksum(part1Disk)}");
+    Console.WriteLine("Part 1:");
+    disk = FileParser(path);
+    disk = DiskCompactor.Part1CompactDisk(disk);
+    VisualizeDisk(disk);
     part1Timer.Stop();
-    Console.WriteLine($"Part 1 Timer: {part1Timer.ElapsedMilliseconds + fileParsingTimer.ElapsedMilliseconds}ms");
+    Console.WriteLine($"Part 1: Checksum = {GenerateChecksum(disk)}");
+    Console.WriteLine($"Part 1 Timer: {part1Timer.ElapsedMilliseconds}ms");
 
     // Part 2
     Stopwatch part2Timer = Stopwatch.StartNew();
-    var part2Disk = DiskCompactor.Part2CompactDisk(disk);
-    VisualizeDisk(part2Disk);
-    Console.WriteLine($"Part 2: Checksum = {GenerateChecksum(part2Disk)}");
+    Console.WriteLine("\n \nPart 2:");
+    disk = FileParser(path);
+    disk = DiskCompactor.Part2CompactDisk(disk);
+    VisualizeDisk(disk);
+    Console.WriteLine($"Part 2: Checksum = {GenerateChecksum(disk)}");
     part1Timer.Stop();
-    Console.WriteLine($"Part 2 Timer: {part2Timer.ElapsedMilliseconds + fileParsingTimer.ElapsedMilliseconds}ms");
+    Console.WriteLine($"Part 2 Timer: {part2Timer.ElapsedMilliseconds}ms");
 }
 
 Main("C:/Users/Sparksp/Documents/GitHub/AdventOfCode/2024/Day 9/sample.txt");

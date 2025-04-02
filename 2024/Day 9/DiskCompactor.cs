@@ -28,7 +28,46 @@
         }
         public static List<int> Part2CompactDisk(List<int> disk)
         {
-            return disk;
+            int diskSwapLoc = 0;
+
+            for (int i = 0; i < disk.Count; i++)
+            {
+                if (disk[i] == -1)
+                {
+                    int emptyLength = 0;
+                    while (i + emptyLength < disk.Count && disk[i + emptyLength] == -1)
+                    {
+                        emptyLength++;
+                    }
+
+                    int fileLength = 0;
+                    while (diskSwapLoc < disk.Count && disk[disk.Count - 1 - diskSwapLoc] == -1)
+                    {
+                        diskSwapLoc++;
+                    }
+
+                    if (diskSwapLoc < disk.Count)
+                    {
+                        int fileStart = disk.Count - 1 - diskSwapLoc;
+                        while (fileStart - fileLength >= 0 && disk[fileStart - fileLength] == disk[fileStart])
+                        {
+                            fileLength++;
+                        }
+
+                        if (fileLength <= emptyLength)
+                        {
+                            for (int j = 0; j < fileLength; j++)
+                            {
+                                disk[i + j] = disk[fileStart];
+                                disk[fileStart - j] = -1;
+                            }
+                            diskSwapLoc += fileLength;
+                        }
+                    }
+                }
+            }
+
+            return disk.Select(x => x == -1 ? 0 : x).ToList();
         }
     }
 }
