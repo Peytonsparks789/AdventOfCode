@@ -2,6 +2,11 @@
 {
     internal class Debugger
     {
+        public static void VisualizeRawDisk(List<int> disk)
+        {
+            // Used for debugging, print our current state of the disk
+            Console.WriteLine(string.Join(" ", disk));
+        }
         public static void VisualizeDisk(string[] disk)
         {
             // Used for debugging, print our current state of the disk
